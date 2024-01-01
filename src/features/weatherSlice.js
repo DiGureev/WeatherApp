@@ -5,7 +5,7 @@ import axios from 'axios';
 const API_KEY = process.env.REACT_APP_API_KEY
 
 export const getLatLon = createAsyncThunk('weather/getLatLon', async(query)=>{
-    let response = await axios.get(`http://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=1&appid=${API_KEY}`)
+    let response = await axios.get(`https://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=1&appid=${API_KEY}`)
     return response.data[0]
 })
 
