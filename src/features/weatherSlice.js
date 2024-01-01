@@ -2,28 +2,28 @@ import { createSlice } from "@reduxjs/toolkit";
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import axios from 'axios';
 
-// const API_KEY = process.env.API_KEY
+const API_KEY = process.env.REACT_APP_API_KEY
 
 export const getLatLon = createAsyncThunk('weather/getLatLon', async(query)=>{
-    let response = await axios.get(`http://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=1&appid=aeca4dfe96186e755db82cb454a42d70`)
+    let response = await axios.get(`http://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=1&appid=${API_KEY}`)
     return response.data[0]
 })
 
 export const getTemp = createAsyncThunk('weather/getTemp', async(req)=>{
     const {lat, lon} = req
-    let response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=aeca4dfe96186e755db82cb454a42d70&units=metric`)    
+    let response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`)    
     return response.data.main
 })
 
 export const getForecast = createAsyncThunk('weather/getForecast', async(req)=>{
     const {lat, lon} = req
-    let response = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=aeca4dfe96186e755db82cb454a42d70&units=metric`)    
+    let response = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`)    
     return response.data.list
 })
 
 export const getCurFavs = createAsyncThunk('weather/getCurFavs', async(req)=>{
     const {name, lat, lon} = req
-    let response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=aeca4dfe96186e755db82cb454a42d70&units=metric`)    
+    let response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`)    
     return {name, temp: response.data.main.temp}
 })
 
