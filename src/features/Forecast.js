@@ -27,7 +27,7 @@ const Forecast = (props)=>{
                         } else{
                             let date = new Date(item.dt_txt)
                             let day = `${date.getDate()} ${months[date.getMonth()]}`
-                            return <Grid item xs={2} sx={{ mx: 'auto'}}><Card sx={{ width: 200 }} key={index}>
+                            return <Grid item s={2} sx={{ mx: 'auto'}}><Card sx={{ width: 200 }} key={index}>
                                     <CardContent>
                                         <Img temp={item.main.temp}/>
                                         <Typography variant="h4">{day}</Typography>
