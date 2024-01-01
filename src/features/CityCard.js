@@ -18,7 +18,7 @@ const CityCard = (props) => {
             console.log(weather.status)
             setMsg('This city doesnt exist')
         }
-    },[weather.status])
+    },[weather.nameTown])
 
     const handleClick = () => {
         dispatch(addFav({name: weather.nameTown, lat: weather.lat, lon: weather.lon}))

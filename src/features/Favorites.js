@@ -1,30 +1,28 @@
-import {useSelector } from "react-redux";
-import {useState} from 'react'
-import {weatherState} from './weatherSlice.js';
-import axios from "axios";
+import {useSelector, useDispatch } from "react-redux"
+import {useState, useEffect} from 'react'
+import {weatherState, getCurFavs} from './weatherSlice.js';
 
-const API_KEY = process.env.API_KEY
-//DOESNT WORK
 
 const Favorites = (props) => {
     const weather = useSelector(weatherState);
-    const favArr = []
+    const dispatch = useDispatch()
 
-    if (weather.favorites.length !== 0) {
-        console.log(weather.favorites)
-        weather.favorites.map(async (item) => {
-            let lat = item.lat
-            let lon = item.lon
+    console.log(weather.favorites)
 
-            let response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`)
+    useEffect (() => {
+        weather.favorites.map(item=> {
+            console.log(item)
+            dispatch(getCurFavs({name: item.name, lat: item.lat, lon: item.lon}))
+        })
+        
+        console.log('weather.curfavs',weather.curfavs)
+     
+    }, [weather.favorites])
 
-            favArr.push({name: item.name, temp: response.data.main.temp})
-           })
-    }
 
     return (
         <>
-        {favArr && favArr.map((item, index) => {
+        {weather.curfavs.map((item, index) => {
             return <div key={index}>
                 <h4>{item.name}</h4>
                 <p>{item.temp}</p>
