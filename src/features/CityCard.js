@@ -2,6 +2,7 @@ import {useSelector, useDispatch } from "react-redux"
 import {useEffect, useState} from 'react'
 import {weatherState, getTemp, addFav} from './weatherSlice.js'
 import Forecast from './Forecast.js'
+import Img from "./Img.js"
 
 const CityCard = (props) => {
     const weather = useSelector(weatherState);
@@ -31,6 +32,7 @@ const CityCard = (props) => {
         <div></div>
     } else {
         return <div>
+            <Img temp={weather.temp.temp}/>
             <p>Today's temprature in {weather.nameTown}: {weather.temp && weather.temp.temp}</p>
             <p>Feels like: {weather.temp && weather.temp.feels_like}</p>
             <p>Max temprature: {weather.temp && weather.temp.temp_max}</p>

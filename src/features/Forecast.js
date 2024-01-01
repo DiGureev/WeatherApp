@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import {useSelector, useDispatch } from "react-redux"
 import {weatherState, getForecast, setClick} from './weatherSlice.js'
+import Img from "./Img.js"
 
 const Forecast = (props)=>{
     const weather = useSelector(weatherState);
@@ -25,6 +26,7 @@ const Forecast = (props)=>{
                     let date = new Date(item.dt_txt)
                     let day = `${date.getDate()}.${date.getMonth()+1}`
                     return <div key={index}>
+                            <Img temp={item.main.temp}/>
                             <h3>{day}</h3>
                             <p>Temprature: {item.main.temp}</p>
                             <p>Wind Speed: {item.wind.speed}</p>
