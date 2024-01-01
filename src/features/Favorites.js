@@ -1,7 +1,7 @@
 import {useSelector, useDispatch } from "react-redux"
 import {useState, useEffect} from 'react'
-import {weatherState, getCurFavs} from './weatherSlice.js';
-
+import {weatherState, getCurFavs, removeFav} from './weatherSlice.js';
+import { Grid, Button, Card, CardContent, Typography} from '@mui/material';
 
 const Favorites = (props) => {
     const weather = useSelector(weatherState);
@@ -19,16 +19,25 @@ const Favorites = (props) => {
      
     }, [weather.favorites])
 
+    const handleClick = (name) => {
+        dispatch(removeFav({name}))
+    }
+
 
     return (
-        <>
+        <Grid container spacing={2} sx={{ m: 2, mb:6}}>
         {weather.curfavs.map((item, index) => {
-            return <div key={index}>
-                <h4>{item.name}</h4>
-                <p>{item.temp}</p>
-            </div>
+            return <Grid item xs={2} sx={{ mx: 'auto'}} key={index}>
+                        <Card sx={{ width: 200 }} key={index}>
+                            <CardContent>
+                                <Typography variant="h5">{item.name}</Typography>
+                                <Typography variant="subtitle1">{item.temp}°C</Typography>
+                                <Button onClick={()=>handleClick(item.name)} variant="outlined" sx={{ m: 1 }} size="small">Remove</Button>
+                            </CardContent>
+                        </Card>
+                    </Grid>
         })}
-        </>
+        </Grid>
     )
 
 

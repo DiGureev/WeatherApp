@@ -59,6 +59,13 @@ export const weatherSlice = createSlice({
             }
 
         },
+        removeFav: (state, action) => {
+            console.log('from remove',action.payload.name)
+            let checkFav = state.favorites.filter(item => item.name !== action.payload.name)
+            let checkCur = state.curfavs.filter(item => item.name !== action.payload.name)
+            state.favorites = checkFav
+            state.curfavs = checkCur
+        },
     },
 
     extraReducers(builder){
@@ -86,18 +93,15 @@ export const weatherSlice = createSlice({
 
         .addCase(getCurFavs.fulfilled, (state, action) => {
             console.log('payload',action.payload)
-            state.curfavs.push(action.payload)
+            let checkArr = state.curfavs.filter(item => item.name === action.payload.name)
+            if (checkArr.length === 0){
+                state.curfavs.push(action.payload)
+            }
+            
         })
-        // .addCase(fetchName.fulfilled, (state, action)=> {
-        //     state.status = "succeeded";
-        //     state.data = action.payload
-        // })
-        // .addCase(fetchName.rejected, (state) => {
-        //     state.status = "rejected";
-        //   })
     }
 })
-export const {setClick, addFav} = weatherSlice.actions
+export const {setClick, addFav, removeFav} = weatherSlice.actions
 
 export default weatherSlice.reducer
 

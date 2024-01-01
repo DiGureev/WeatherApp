@@ -1,21 +1,23 @@
 import { useSelector, useDispatch } from "react-redux"
-import { useRef , useEffect} from "react"
+import { useEffect} from "react"
 import {weatherState, getLatLon, setClick} from './weatherSlice.js'
 import CityCard from './CityCard.js'
-import Favorites from './Favorites.js'
+import { Box, TextField, Button } from '@mui/material';
+
 
 const Main = (props) => {
     const weather = useSelector(weatherState);
     const dispatch = useDispatch();
-    const query = useRef()
+    // const query = useRef()
 
     useEffect(()=>{
 
     }, [weather.favorites])
 
-const handleSubmit = async (e) => {
+const handleSubmit = (e) => {
     e.preventDefault()
-    dispatch(getLatLon(query.current.value))
+    let query = e.target.search.value
+    dispatch(getLatLon(query))
 
     if (weather.clicked === true) {
         dispatch(setClick())
@@ -24,15 +26,15 @@ const handleSubmit = async (e) => {
 }
 
 return (
-    <div>
+    <Box sx={{ mx: 'auto'}}>
         <form onSubmit={(e) => handleSubmit(e)}>
-            <input name="search" type="text" ref={query}/>
-            <button type="submit">Search</button>
+            <TextField id="outlined-basic" label="Search" variant="outlined" name="search" required size="small"/>
+            <Button variant="contained" type="submit" sx={{ ml: 1 }}>Search</Button>
         </form>
 
-    <div><CityCard/></div>
+    <CityCard/>
 
-    </div>
+    </Box>
 )
 
 };

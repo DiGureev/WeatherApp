@@ -3,6 +3,7 @@ import {useEffect, useState} from 'react'
 import {weatherState, getTemp, addFav} from './weatherSlice.js'
 import Forecast from './Forecast.js'
 import Img from "./Img.js"
+import { Button, Card, CardContent, Typography} from '@mui/material';
 
 const CityCard = (props) => {
     const weather = useSelector(weatherState);
@@ -32,13 +33,22 @@ const CityCard = (props) => {
         <div></div>
     } else {
         return <div>
-            <Img temp={weather.temp.temp}/>
-            <p>Today's temprature in {weather.nameTown}: {weather.temp && weather.temp.temp}</p>
-            <p>Feels like: {weather.temp && weather.temp.feels_like}</p>
-            <p>Max temprature: {weather.temp && weather.temp.temp_max}</p>
-            <p>Min temprature: {weather.temp && weather.temp.temp_min}</p>
-            <button onClick={(handleClick)}>Add to Favorite</button><br/>
+            <Card sx={{ width: 275, mr: 'auto', ml:'auto', mt:2, mb:2}}>
+                <CardContent>
+                    <Img temp={weather.temp.temp}/>
+                    <Typography variant="h4">{weather.nameTown}</Typography>
+                    <Typography variant="h5">{weather.temp && weather.temp.temp}°C</Typography>
+                    <Typography variant="subtitle1">
+                        Feels like: {weather.temp && weather.temp.feels_like}°C<br/>
+                        Max: {weather.temp && weather.temp.temp_max}°C<br/>
+                        Min: {weather.temp && weather.temp.temp_min}°C
+                    </Typography>
+                </CardContent>
+            </Card>
+
+            <Button onClick={handleClick} variant="contained" type="submit" sx={{ m: 1 }}>Add to Favorite</Button>
             <Forecast/>
+            
             </div>
     }
 
