@@ -7,6 +7,7 @@ import { Grid, Button, Card, CardContent, Typography} from '@mui/material';
 const Forecast = (props)=>{
     const weather = useSelector(weatherState);
     const dispatch = useDispatch();
+    const months = ['Jan', 'Feb', 'Mar', 'Apl', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
     useEffect(()=>{
     },[weather.clicked])
@@ -25,7 +26,7 @@ const Forecast = (props)=>{
                             return
                         } else{
                             let date = new Date(item.dt_txt)
-                            let day = `${date.getDate()}.${date.getMonth()+1}`
+                            let day = `${date.getDate()} ${months[date.getMonth()]}`
                             return <Grid item xs={2} sx={{ mx: 'auto'}}><Card sx={{ width: 200 }} key={index}>
                                     <CardContent>
                                         <Img temp={item.main.temp}/>
