@@ -25,10 +25,10 @@ const Favorites = (props) => {
 
 
     return (
-        <Grid container spacing={2} sx={{ m: 2, mb:6}}>
+        <Grid container xs={12} spacing={2} sx={{ m: 2, mb:6, mr: 'auto', ml: 'auto', width: 1} }>
         {weather.curfavs.map((item, index) => {
-            return <Grid item xs={2} sx={{ mx: 'auto'}} key={index}>
-                        <Card sx={{ width: 200 }} key={index}>
+            return <Grid item xs={6} sm={3} lg={2} md={3} xl={2} sx={{ mx: 'auto', width: 1}} key={index}>
+                        <Card key={index}>
                             <CardContent>
                                 <Typography variant="h5">{item.name}</Typography>
                                 <Typography variant="subtitle1">{item.temp}°C</Typography>
